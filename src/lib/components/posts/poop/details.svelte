@@ -1,13 +1,31 @@
 <script lang="ts">
 	import type { PoopPostDetails } from '$lib';
 	import Directus from '$lib/plugins/directus';
+	import { onMount } from 'svelte';
+	import Viewer from 'viewerjs';
 	export const directusClient = Directus();
 	export let post: PoopPostDetails;
+
+	export let imageNode: HTMLElement;
+	export let imageView;
+
+	onMount(() => {
+		imageView = new Viewer(imageNode, {
+			inline: true,
+			navbar: false,
+			focus: true,
+			toolbar: false,
+			transition: false,
+			fullscreen: true,
+			backdrop: true
+		});
+	});
 </script>
 
 <div class="post">
 	{#if post.image?.filename_disk}
 		<img
+			bind:this={imageNode}
 			class="post__image"
 			src={directusClient.getImageLink(post.image.filename_disk)}
 			alt={post.description}
@@ -28,11 +46,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
+		height: 100%;
 		&__image {
-			max-width: 80rem;
-		}
-		&__content {
-			max-width: 80rem;
+			opacity: 0;
+			display: none;
 		}
 	}
 </style>

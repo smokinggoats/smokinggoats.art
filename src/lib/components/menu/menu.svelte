@@ -38,14 +38,15 @@
 		top: 0;
 		left: 0;
 		width: 100%;
+		max-width: 100vw;
 		height: 4rem;
-		background-color: #eee;
+		background-color: #222;
 		display: inline-flex;
 		justify-content: space-between;
 		align-items: center;
-		// box-shadow:
-		// 	0 10px 20px rgba(0, 0, 0, 0.19),
-		// 	0 6px 6px rgba(0, 0, 0, 0.23);
+		box-shadow:
+			rgb(128, 0, 128) 0px 0px 5px 0px,
+			rgb(255, 192, 203) 0px 0px 1px 0px;
 		&__logo {
 			display: flex;
 			align-items: center;
@@ -82,12 +83,19 @@
 				line-height: 160%;
 				transition: all 0.1s ease-in-out;
 				text-decoration: none;
+				text-transform: uppercase;
+				font-size: 0.8em;
+				box-shadow:
+					rgb(128, 0, 128) 0px 0px 5px 0px,
+					rgb(255, 192, 203) 0px 0px 5px 0px;
+				transition: all 0.4s ease;
 				&:hover {
 					color: #fff;
-					background-color: purple;
+					background-color: rgb(128, 0, 128);
+					box-shadow: rgb(255, 192, 203) -10px 0px -10px 0px;
 				}
 				&--selected {
-					background: pink;
+					background: rgb(255, 192, 203);
 					color: #333;
 				}
 			}

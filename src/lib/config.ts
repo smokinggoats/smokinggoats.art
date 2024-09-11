@@ -4,5 +4,3 @@ export const config = {
 		host: DIRECTUS_HOST
 	}
 };
-
-console.log({ config, import: import.meta.env });
