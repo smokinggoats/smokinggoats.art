@@ -23,7 +23,10 @@
 
 <button type="button" class={`card card-${cardType}`} on:click={onCardClick}>
 	<div class="card-image">
-		<img src={directusClient.getImageLink(post?.image || post?.header)} alt={post.title} />
+		<img
+			src={directusClient.getImageLink(post?.image || post?.header, 200, 200)}
+			alt={post.title}
+		/>
 	</div>
 	<div class="card-text">
 		<div class="card-text__title">{post.title}</div>
@@ -34,7 +37,7 @@
 <style lang="scss">
 	$boxSpacing: 64px;
 	$gridSize: 10rem;
-	$cornerRadius: $gridSize/2.1;
+	$cornerRadius: calc($gridSize/2.1);
 	.card {
 		cursor: pointer;
 		display: flex;
@@ -63,8 +66,8 @@
 			grid-row: auto / span 2;
 			&:hover {
 				box-shadow:
-					rgb(128, 0, 128) -5px 5px,
-					rgb(255, 192, 203) -10px 10px;
+					rgb(128, 0, 128) 5px 5px,
+					rgb(255, 192, 203) 10px 10px;
 			}
 		}
 
@@ -74,8 +77,8 @@
 			grid-row: auto / span 1;
 			&:hover {
 				box-shadow:
-					rgb(128, 0, 128) 5px 5px,
-					rgb(255, 192, 203) 10px 10px;
+					rgb(128, 0, 128) -5px 5px,
+					rgb(255, 192, 203) -10px 10px;
 			}
 		}
 

@@ -15,3 +15,4 @@ container/directus/database
 container/directus/extensions
 container/directus/uploads
 container/nginx/certbot
+dist

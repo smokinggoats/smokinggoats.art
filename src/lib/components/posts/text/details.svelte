@@ -9,7 +9,7 @@
 	<div class="post__header">
 		<img
 			class="post__header__image"
-			src={directusClient.getImageLink(post.header?.filename_disk || '')}
+			src={directusClient.getImageLink(post.header?.id || '')}
 			alt={post.title}
 		/>
 	</div>
@@ -58,7 +58,7 @@
 				background: linear-gradient(
 					180deg,
 					rgba(238, 238, 238, 0.8) 0%,
-					rgba(21, 21, 21, 0.8) 5%,
+					rgba(21, 21, 21, 0.8) 2%,
 					rgba(21, 21, 21, 1) 100%
 				);
 			}
@@ -80,44 +80,42 @@
 		}
 	}
 
-	// @media (min-width: 40em) {
-	// 	.post {
-	// 		&__header {
-	// 			&::after {
-	// 				background: rgb(238, 238, 238);
-	// 				background: linear-gradient(
-	// 					0deg,
-	// 					rgba(238, 238, 238, 1) 0%,
-	// 					rgba(221, 221, 221, 1) 95%,
-	// 					rgba(204, 204, 204, 0) 100%
-	// 				);
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// @media (min-width: 80em) {
-	// 	.post {
-	// 		&__content {
-	// 			max-width: 50rem;
-	// 		}
-	// 	}
-	// }
-	// @media (min-width: 120em) {
-	// 	.post {
-	// 		&__content {
-	// 			max-width: 80rem;
-	// 		}
-	// 		&__header {
-	// 			&::after {
-	// 				background: rgb(238, 238, 238);
-	// 				background: linear-gradient(
-	// 					0deg,
-	// 					rgba(238, 238, 238, 1) 0%,
-	// 					rgba(221, 221, 221, 1) 90%,
-	// 					rgba(204, 204, 204, 0) 100%
-	// 				);
-	// 			}
-	// 		}
-	// }
-	// }
+	@media (min-width: 40em) {
+		.post {
+			&__header {
+				&::after {
+					background: linear-gradient(
+						180deg,
+						rgba(238, 238, 238, 0.8) 0%,
+						rgba(21, 21, 21, 0.8) 5%,
+						rgba(21, 21, 21, 1) 100%
+					);
+				}
+			}
+		}
+	}
+	@media (min-width: 80em) {
+		.post {
+			&__content {
+				max-width: 50rem;
+			}
+		}
+	}
+	@media (min-width: 120em) {
+		.post {
+			&__content {
+				max-width: 80rem;
+			}
+			&__header {
+				&::after {
+					background: linear-gradient(
+						180deg,
+						rgba(238, 238, 238, 0.8) 0%,
+						rgba(21, 21, 21, 0.8) 8%,
+						rgba(21, 21, 21, 1) 100%
+					);
+				}
+			}
+		}
+	}
 </style>

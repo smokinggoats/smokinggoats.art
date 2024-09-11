@@ -23,7 +23,7 @@
 <style lang="scss">
 	$boxSpacing: 64px;
 	$gridSize: 10em;
-	$cornerRadius: $gridSize/2.1;
+	$cornerRadius: calc($gridSize/2.1);
 
 	.container {
 		display: grid;

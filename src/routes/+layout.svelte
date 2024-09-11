@@ -11,7 +11,7 @@
 
 <style lang="scss">
 	.app {
-		background-color: #333;
+		background-color: rgba(21, 21, 21, 1);
 		color: #fff;
 		width: 100%;
 		height: 100%;
