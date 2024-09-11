@@ -2,12 +2,7 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    network_mode: "host"
     hostname: $PIHOLE_DOMAIN
-      #    ports:
-      #      - "53:53/tcp"
-      #      - "53:53/udp"
-      #      - "80:80/tcp"
     environment:
       TZ: $PIHOLE_TZ
       WEBPASSWORD: $PIHOLE_PASSWORD
