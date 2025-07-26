@@ -16,7 +16,7 @@
 		posts = [],
 		onCardClick: onCardClickHandler
 	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } = $props();
-	let selectedPost: PoopPost | null = $state(null);
+	let selectedPost: PoopPost | undefined | null = $state(null);
 	function updateSelected(sp: PoopPost | undefined = undefined) {
 		if (sp) {
 			page.url.searchParams.set('selected', `${sp.id}`);
@@ -26,12 +26,17 @@
 		goto(page.url.toString());
 	}
 
-	export function onCardClick(post: PoopPost) {
+	export function onCardClick(index: number) {
+		const post: PoopPost = posts && posts[index];
 		if (onCardClickHandler) onCardClickHandler(post);
+		selectedPost = post;
 		updateSelected(post);
 		gallery.view(posts.findIndex((p) => post.id === p.id));
 		gallery.toggle();
 	}
+	let audioPlayer: HTMLElement | null = $state(null);
+	let isPaused = $state(true);
+
 	onMount(() => {
 		gallery = new Viewer(container, {
 			// inline: true,
@@ -46,24 +51,41 @@
 			button: true,
 			loop: true,
 			backdrop: true,
+			view(event) {
+				console.log('start audio');
+			},
 			hide() {
 				updateSelected();
 			}
 		});
 		const preSelected = page.url.searchParams.get('selected');
 		if (preSelected) {
-			const p = posts.find((el) => `${el.id}` === preSelected);
+			const p = posts.findIndex((el) => `${el.id}` === preSelected);
 			if (p) {
-				selectedPost = p;
 				onCardClick(p);
 			}
 		}
 	});
 </script>
 
+<div class="audio">
+	<div class={['audio__src', !isPaused && 'audio__src--play']}>
+		<audio
+			class="audio__src__audio"
+			controls
+			autoplay
+			loop
+			onplay={() => (isPaused = false)}
+			onpause={() => (isPaused = true)}
+			bind:this={audioPlayer}
+			src="https://directus.smokinggoats.art/assets/4c1c1822-a761-4a2f-876d-4c64e12917e1.flac?format=mp3"
+		>
+		</audio>
+	</div>
+</div>
 <div class="container" bind:this={container}>
-	{#each posts as post}
-		<Card {post} onClick={onCardClick} />
+	{#each posts as post, index}
+		<Card {post} onClick={() => onCardClick(index)} />
 	{/each}
 </div>
 
@@ -71,6 +93,117 @@
 	$boxSpacing: 64px;
 	$gridSize: 10em;
 	$cornerRadius: calc($gridSize/2.1);
+
+	.audio {
+		box-sizing: border-box;
+		width: 100%;
+		margin: 2rem auto 4rem auto;
+		padding: 0 4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		&__src {
+			position: relative;
+			&::after {
+				position: absolute;
+				transition: all ease 1s;
+				content: '';
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				transform: translateZ(0);
+				filter: blur(0px);
+				background: linear-gradient(
+					to left,
+					#ff5770,
+					#e4428d,
+					#c42da8,
+					#9e16c3,
+					#6501de,
+					#9e16c3,
+					#c42da8,
+					#e4428d,
+					#ff5770
+				);
+				background-size: 100% 100%;
+				z-index: 2;
+			}
+			&:hover {
+				&::after {
+					position: absolute;
+					transition: all ease 1s;
+					content: '';
+					top: 0;
+					left: 0;
+					right: 0;
+					height: 100%;
+					width: 100%;
+					transform: translateZ(0);
+					filter: blur(15px);
+					background: linear-gradient(
+						to left,
+						#ff5770,
+						#e4428d,
+						#c42da8,
+						#9e16c3,
+						#6501de,
+						#9e16c3,
+						#c42da8,
+						#e4428d,
+						#ff5770
+					);
+					background-size: 200% 200%;
+					z-index: 1;
+				}
+			}
+			&--play {
+				&::after {
+					position: absolute;
+					transition: all ease 1s;
+					content: '';
+					top: 0;
+					left: 0;
+					right: 0;
+					height: 100%;
+					width: 100%;
+					transform: translateZ(0);
+					filter: blur(15px);
+					background: linear-gradient(
+						to left,
+						#ff5770,
+						#e4428d,
+						#c42da8,
+						#9e16c3,
+						#6501de,
+						#9e16c3,
+						#c42da8,
+						#e4428d,
+						#ff5770
+					);
+					background-size: 200% 200%;
+					animation: animateGlow 2s linear infinite reverse;
+					z-index: 1;
+				}
+			}
+
+			&__audio {
+				position: relative;
+				z-index: 3;
+			}
+
+			@keyframes animateGlow {
+				0% {
+					background-position: 0% 50%;
+				}
+				100% {
+					background-position: 200% 50%;
+				}
+			}
+		}
+	}
 
 	.container {
 		display: grid;

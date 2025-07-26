@@ -13,7 +13,6 @@
 </script>
 
 <div class="page">
-	<h1 class="page__title">Poop</h1>
 	<PoopList posts={data.posts} />
 </div>
 
