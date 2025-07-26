@@ -22,7 +22,6 @@
 	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } & PageProps = $props();
 	let selectedPost: PoopPost | null = $state(null);
 	function updateSelected(sp: PoopPost | undefined = undefined) {
-		console.log({ sp });
 		if (sp) {
 			page.url.searchParams.set('selected', `${sp.id}`);
 		} else {
