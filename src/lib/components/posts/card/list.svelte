@@ -73,7 +73,6 @@
 		<audio
 			class="audio__src__audio"
 			controls
-			autoplay
 			loop
 			onplay={() => (isPaused = false)}
 			onpause={() => (isPaused = true)}
