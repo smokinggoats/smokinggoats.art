@@ -3,19 +3,41 @@
 	import Directus from '$lib/plugins/directus';
 	import Viewer from 'viewerjs';
 	import Card from './card.svelte';
+	import type { PageProps } from '../../../../routes/$types';
+	import { page } from '$app/state';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	export const directusClient = Directus();
 	interface Props {
 		posts?: PoopPost[];
 	}
 
-	let selectedPost: PoopPost | null = $state(null);
 	let container: HTMLElement;
 	let gallery: Viewer;
 	let {
 		posts = [],
-		onCardClick: onCardClickHandler
-	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } = $props();
-	$effect(() => {
+		onCardClick: onCardClickHandler,
+		data,
+		params
+	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } & PageProps = $props();
+	let selectedPost: PoopPost | null = $state(null);
+	function updateSelected(sp: PoopPost | undefined = undefined) {
+		console.log({ sp });
+		if (sp) {
+			page.url.searchParams.set('selected', `${sp.id}`);
+		} else {
+			page.url.searchParams.delete('selected');
+		}
+		goto(page.url.toString());
+	}
+
+	export function onCardClick(post: PoopPost) {
+		if (onCardClickHandler) onCardClickHandler(post);
+		updateSelected(post);
+		gallery.view(posts.findIndex((p) => post.id === p.id));
+		gallery.toggle();
+	}
+	onMount(() => {
 		gallery = new Viewer(container, {
 			// inline: true,
 			title: (image: any) => {
@@ -28,14 +50,20 @@
 			fullscreen: false,
 			button: true,
 			loop: true,
-			backdrop: true
+			backdrop: true,
+			hide() {
+				updateSelected();
+			}
 		});
+		const preSelected = page.url.searchParams.get('selected');
+		if (preSelected) {
+			const p = posts.find((el) => `${el.id}` === preSelected);
+			if (p) {
+				selectedPost = p;
+				onCardClick(p);
+			}
+		}
 	});
-	export function onCardClick(post: PoopPost) {
-		if (onCardClickHandler) onCardClickHandler(post);
-		gallery.view(posts.findIndex((p) => post.id === p.id));
-		gallery.toggle();
-	}
 </script>
 
 <div class="container" bind:this={container}>
