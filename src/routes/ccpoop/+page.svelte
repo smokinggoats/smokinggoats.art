@@ -1,15 +1,10 @@
 <script lang="ts">
-	import { type PoopPost } from '$lib';
 	import PoopList from '$lib/components/posts/card/list.svelte';
 	import Directus from '$lib/plugins/directus';
 	import type { PageData } from './$types';
 	export const directusClient = Directus();
 
-	interface Props {
-		data: PageData & { posts: PoopPost[] };
-	}
-
-	let { data }: Props = $props();
+	const { data }: { data: PageData } = $props();
 </script>
 
 <div class="page">
@@ -22,11 +17,5 @@
 		box-sizing: border-box;
 		overflow: auto;
 		height: 100%;
-		&__title {
-			font-size: 2rem;
-			margin: 2rem auto 3rem auto;
-			text-align: center;
-			text-transform: uppercase;
-		}
 	}
 </style>

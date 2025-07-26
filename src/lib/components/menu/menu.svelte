@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { ROUTES, menu } from '$lib/utils/constants';
+	import { ROUTES, menu, type Route } from '$lib/utils/constants';
 	import Icon from '@iconify/svelte';
-	// import logo from '../../../../static/logo.png?url';
+
 	let selected: string = $state(page.route.id || '');
+
 	function updateSelected(index: string | null) {
 		selected = index || page.route.id || '';
+	}
+
+	function isSelected(item: Route) {
+		return item.path !== ROUTES.home() && selected.startsWith(item.path);
 	}
 </script>
 
@@ -17,8 +22,7 @@
 		{#each menu as item}
 			<a
 				class="menu__items__item"
-				class:menu__items__item--selected={item.path !== ROUTES.home() &&
-					selected.startsWith(item.path)}
+				class:menu__items__item--selected={isSelected(item)}
 				onclick={() => updateSelected(item.path)}
 				href={item.path}
 			>
@@ -33,6 +37,17 @@
 </div>
 
 <style lang="scss">
+	:root {
+		--bg-purple: rgb(128, 0, 128);
+		--bg-purple-text: #fff;
+		--bg-pink: rgb(255, 192, 203);
+		--bg-pink-text: #333;
+		--bg-black: #222;
+		--text-grey: #666;
+	}
+	$boxShadow:
+		var(--bg-purple) 0px 0px 5px 0px,
+		var(--bg-pink) 0px 0px 1px 0px;
 	.menu {
 		z-index: 100;
 		position: fixed;
@@ -41,13 +56,11 @@
 		width: 100%;
 		max-width: 100vw;
 		height: 4rem;
-		background-color: #222;
+		background-color: var(--bg-black);
 		display: inline-flex;
 		justify-content: space-between;
 		align-items: center;
-		box-shadow:
-			rgb(128, 0, 128) 0px 0px 5px 0px,
-			rgb(255, 192, 203) 0px 0px 1px 0px;
+		box-shadow: $boxShadow;
 		&__logo {
 			display: flex;
 			align-items: center;
@@ -73,7 +86,7 @@
 			justify-content: flex-end;
 			margin: auto;
 			&__item {
-				color: #666;
+				color: var(--text-grey);
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -86,18 +99,16 @@
 				text-decoration: none;
 				text-transform: uppercase;
 				font-size: 0.8em;
-				box-shadow:
-					rgb(128, 0, 128) 0px 0px 5px 0px,
-					rgb(255, 192, 203) 0px 0px 5px 0px;
+				box-shadow: $boxShadow;
 				transition: all 0.4s ease;
 				&:hover {
-					color: #fff;
-					background-color: rgb(128, 0, 128);
-					box-shadow: rgb(255, 192, 203) -10px 0px -10px 0px;
+					color: var(--bg-purple-text);
+					background-color: var(--bg-purple);
+					box-shadow: var(--bg-pink) -10px 0px -10px 0px;
 				}
 				&--selected {
-					background: rgb(255, 192, 203);
-					color: #333;
+					background: var(--bg-pink);
+					color: var(--bg-pink-text);
 				}
 			}
 		}

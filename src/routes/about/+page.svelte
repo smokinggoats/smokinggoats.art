@@ -6,12 +6,21 @@
 	<div class="page__links">
 		<a class="page__links__link" href="https://linktr.ee/smoking.goats" target="_blank">
 			<Icon class="page__links__link__icon" icon="solar:suitcase-tag-line-duotone" />
-			<span class="page__links__link__text">Smoking Goats - LinkTr</span>
+			<span class="page__links__link__text">Smoking Goats</span>
 		</a>
 	</div>
 </div>
 
 <style lang="scss">
+	:root {
+		--bg-purple: rgb(128, 0, 128);
+		--bg-purple-text: #fff;
+		--bg-pink: rgb(255, 192, 203);
+		--bg-pink-text: #333;
+		--bg-black: #222;
+		--text-grey: #666;
+	}
+
 	.page {
 		padding: 1rem 1rem 4rem 1rem;
 		box-sizing: border-box;
@@ -35,25 +44,25 @@
 				padding: 1rem 2rem;
 				border-radius: 10rem;
 				box-shadow:
-					rgb(128, 0, 128) 0px 0px 5px 0px,
-					rgb(255, 192, 203) 0px 0px 5px 0px;
-				background-color: #fff;
+					var(--bg-purple) 0px 0px 5px 0px,
+					var(--bg-pink) 0px 0px 5px 0px;
 				font-size: 2rem;
 				text-align: center;
 				text-decoration: none;
 				transition: all 0.3s ease;
 				color: #fff;
-				background-color: #555;
+				background-color: #222;
 				&__text {
 					margin: 0.5rem;
 				}
-				&:hover {
-					background-color: #fff;
-					color: #000;
+				&:hover,
+				&:focus {
+					background-color: #ffffff;
+					color: #333;
 					transform: scale(1.1);
 					box-shadow:
-						rgb(128, 0, 128) 0px 5px,
-						rgb(255, 192, 203) 0px 10px;
+						var(--bg-purple) 0px 5px,
+						var(--bg-pink) 0px 10px;
 				}
 			}
 		}
