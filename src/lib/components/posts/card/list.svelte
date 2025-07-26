@@ -1,13 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import type { PoopPost } from '$lib/index.types';
-	import Directus from '$lib/plugins/directus';
+	import { onMount } from 'svelte';
 	import Viewer from 'viewerjs';
 	import Card from './card.svelte';
-	import type { PageProps } from '../../../../routes/$types';
-	import { page } from '$app/state';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	export const directusClient = Directus();
+
 	interface Props {
 		posts?: PoopPost[];
 	}
@@ -16,10 +14,8 @@
 	let gallery: Viewer;
 	let {
 		posts = [],
-		onCardClick: onCardClickHandler,
-		data,
-		params
-	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } & PageProps = $props();
+		onCardClick: onCardClickHandler
+	}: { posts: PoopPost[]; onCardClick?: (post: PoopPost) => void } = $props();
 	let selectedPost: PoopPost | null = $state(null);
 	function updateSelected(sp: PoopPost | undefined = undefined) {
 		if (sp) {

@@ -19,7 +19,7 @@
 		&__title {
 			color: #666;
 			font-size: 2rem;
-			margin: 1rem auto;
+			margin: 2rem auto;
 			text-align: center;
 			text-transform: uppercase;
 		}

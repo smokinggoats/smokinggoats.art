@@ -20,17 +20,14 @@
 		color: #fff;
 		width: 100%;
 		height: 100%;
-		max-height: 100%;
 		max-width: 100%;
+		max-height: 100%;
 		overflow: auto;
+		
 		&__content {
 			box-sizing: border-box;
-			padding: 4rem 0 0 0;
-			margin: 0;
-			width: 100%;
-			height: 100%;
-			max-width: 100%;
-			max-height: 100%;
+			padding: 0;
+			margin: 4rem 0 2rem 0;
 		}
 	}
 </style>
