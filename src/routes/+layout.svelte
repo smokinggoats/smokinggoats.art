@@ -1,11 +1,16 @@
 <script lang="ts">
 	import Menu from '$lib/components/menu/menu.svelte';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <div class="app">
 	<Menu />
 	<div class="app__content">
-		<slot />
+		{@render children?.()}
 	</div>
 </div>
 

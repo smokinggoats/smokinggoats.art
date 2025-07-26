@@ -8,7 +8,7 @@ export const ROUTES = {
 };
 export const menu = [
 	{ name: 'Home', path: ROUTES.home(), icon: 'solar:home-outline' },
-	{ name: 'Text', path: ROUTES.cctext() },
+	// { name: 'Text', path: ROUTES.cctext() },
 	{ name: 'Poop', path: ROUTES.ccpoop() },
 	{ name: 'About', path: ROUTES.about() }
 ];

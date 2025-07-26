@@ -10,7 +10,7 @@ export type PoopPost = BasePost & {
 	description?: string;
 	tags?: string[];
 	content?: string;
-	image?: PostImage;
+	image?: string;
 };
 
 export type PoopPostDetails = BasePost & {

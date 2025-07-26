@@ -7,22 +7,16 @@
 	import type { PageData } from './$types';
 	export const directusClient = Directus();
 
-	export let data: PageData & { posts: PoopPost[] };
+	interface Props {
+		data: PageData & { posts: PoopPost[] };
+	}
 
-	function goToPost(id: number) {
-		goto(ROUTES.ccpoopId(id));
-	}
-	export function onCardClick(event: CustomEvent<{ post: PoopPost }>) {
-		const {
-			detail: { post }
-		} = event;
-		goToPost(post.id);
-	}
+	let { data }: Props = $props();
 </script>
 
 <div class="page">
 	<h1 class="page__title">Poop</h1>
-	<PoopList posts={data.posts} on:cardClick={onCardClick} />
+	<PoopList posts={data.posts} />
 </div>
 
 <style lang="scss">

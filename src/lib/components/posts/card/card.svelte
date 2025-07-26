@@ -1,17 +1,20 @@
 <script lang="ts">
 	import type { PoopPost } from '$lib/index.types';
 	import Directus from '$lib/plugins/directus';
-	import { createEventDispatcher } from 'svelte';
 	export const directusClient = Directus();
-	export let post: PoopPost;
+	interface Props {
+		post: PoopPost;
+		onClick: (post: PoopPost) => void;
+	}
+
+	let { post, onClick }: Props = $props();
 	type CardType = 'top' | 'left' | 'right' | 'bottom';
 	export const cardTypes: CardType[] = ['top', 'bottom', 'left', 'right'];
 	export const cardType: CardType =
 		cardTypes[Number(Number((Math.random() * 100) % (cardTypes.length - 1)).toFixed(0))];
 
-	const dispatcher = createEventDispatcher();
 	export function onCardClick() {
-		dispatcher('click', { post });
+		onClick(post);
 	}
 	export function parseDate(date: string) {
 		return new Date(Date.parse(date))
@@ -21,11 +24,12 @@
 	}
 </script>
 
-<button type="button" class={`card card-${cardType}`} on:click={onCardClick}>
+<button type="button" class={`card card-${cardType}`} onclick={onCardClick}>
 	<div class="card-image">
 		<img
-			src={directusClient.getImageLink(post?.image || post?.header, 200, 200)}
+			src={directusClient.getImageLink(post?.image || post?.header)}
 			alt={post.title}
+			class="card-image__img"
 		/>
 	</div>
 	<div class="card-text">
@@ -88,8 +92,8 @@
 			grid-row: auto / span 2;
 			&:hover {
 				box-shadow:
-					rgb(128, 0, 128) 5px -5px,
-					rgb(255, 192, 203) 10px -10px;
+					rgb(128, 0, 128) -5px -5px,
+					rgb(255, 192, 203) -10px -10px;
 			}
 		}
 		&-left {
@@ -98,8 +102,8 @@
 			grid-row: auto / span 1;
 			&:hover {
 				box-shadow:
-					rgb(128, 0, 128) -5px -5px,
-					rgb(255, 192, 203) -10px -10px;
+					rgb(128, 0, 128) 5px -5px,
+					rgb(255, 192, 203) 10px -10px;
 			}
 		}
 		&-image {

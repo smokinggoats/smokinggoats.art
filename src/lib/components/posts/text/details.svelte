@@ -2,7 +2,11 @@
 	import type { TextPostDetails } from '$lib';
 	import Directus from '$lib/plugins/directus';
 	export const directusClient = Directus();
-	export let post: TextPostDetails;
+	interface Props {
+		post: TextPostDetails;
+	}
+
+	let { post }: Props = $props();
 </script>
 
 <div class="post">

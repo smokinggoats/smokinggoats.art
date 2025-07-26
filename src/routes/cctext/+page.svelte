@@ -5,7 +5,11 @@
 	import { ROUTES } from '$lib/utils/constants';
 	import type { PageData } from './$types';
 
-	export let data: PageData & { texts: TextPost[] };
+	interface Props {
+		data: PageData & { texts: TextPost[] };
+	}
+
+	let { data }: Props = $props();
 	function goToPost(id: number) {
 		goto(ROUTES.cctextId(id));
 	}

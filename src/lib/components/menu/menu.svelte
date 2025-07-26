@@ -1,16 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { ROUTES, menu } from '$lib/utils/constants';
 	import Icon from '@iconify/svelte';
-	let selected: string = $page.route.id || '';
+	// import logo from '../../../../static/logo.png?url';
+	let selected: string = $state(page.route.id || '');
 	function updateSelected(index: string | null) {
-		selected = index || $page.route.id || '';
+		selected = index || page.route.id || '';
 	}
 </script>
 
 <div class="menu">
-	<a href={ROUTES.home()} class="menu__logo" on:click={() => updateSelected(ROUTES.home())}>
-		<img class="menu__logo__img" src="http://placekitten.com/300/300" alt="logo" />
+	<a href={ROUTES.home()} class="menu__logo" onclick={() => updateSelected(ROUTES.home())}>
+		<img class="menu__logo__img" src="/logo.png?url" alt="logo" />
 	</a>
 	<nav class="menu__items">
 		{#each menu as item}
@@ -18,7 +19,7 @@
 				class="menu__items__item"
 				class:menu__items__item--selected={item.path !== ROUTES.home() &&
 					selected.startsWith(item.path)}
-				on:click={() => updateSelected(item.path)}
+				onclick={() => updateSelected(item.path)}
 				href={item.path}
 			>
 				{#if item.icon}
