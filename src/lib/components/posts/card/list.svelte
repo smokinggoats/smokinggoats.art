@@ -105,6 +105,7 @@
 		&__src {
 			position: relative;
 			&::after {
+				border-radius: 2rem;
 				position: absolute;
 				transition: all ease 1s;
 				content: '';
@@ -113,7 +114,6 @@
 				right: 0;
 				height: 100%;
 				width: 100%;
-				transform: translateZ(0);
 				filter: blur(0px);
 				background: linear-gradient(
 					to left,
@@ -189,6 +189,7 @@
 			}
 
 			&__audio {
+				border-radius: 2rem;
 				position: relative;
 				z-index: 3;
 			}
