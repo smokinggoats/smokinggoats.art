@@ -27,6 +27,7 @@
 <button type="button" class={`card card-${cardType}`} onclick={onCardClick}>
 	<div class="card-image">
 		<img
+			loading="lazy"
 			src={directusClient.getImageLink(post?.image || post?.header)}
 			alt={post.title}
 			class="card-image__img"
