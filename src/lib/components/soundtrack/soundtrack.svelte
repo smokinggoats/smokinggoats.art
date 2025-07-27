@@ -2,14 +2,22 @@
 	import type { Soundtrack } from '$lib/utils/constants';
 
 	let isPaused = $state(true);
-	let audioPlayer = $state();
+	let audioPlayer: HTMLAudioElement | null | undefined = $state();
+	let volume = $state(1.0);
+	let muted = $state(false);
+	const volumeClass = $derived(muted ? '0' : (volume * 100).toFixed(0));
 	const { soundtrack }: { soundtrack: Soundtrack | undefined | null } = $props();
 </script>
 
 {#if soundtrack && soundtrack.src?.length}
 	<div class="soundtrack">
-		<div class="soundtrack__background" class:soundtrack__background--play={!isPaused}></div>
+		<div
+			class="soundtrack__background soundtrack__background--vol-{volumeClass}"
+			class:soundtrack__background--play={!isPaused}
+		></div>
 		<audio
+			bind:muted
+			bind:volume
 			class="soundtrack__audio"
 			controls
 			loop
@@ -23,6 +31,11 @@
 {/if}
 
 <style lang="scss">
+	@for $i from 1 through 100 {
+		.soundtrack__background--play.soundtrack__background--vol-#{$i} {
+			filter: blur(#{calc(($i/10) + 4)}px);
+		}
+	}
 	:root {
 		--bg-purple: rgb(128, 0, 128);
 		--bg-purple-text: #fff;
@@ -82,7 +95,7 @@
 
 			&--play {
 				transition: all ease 1s;
-				filter: blur($bgBlur);
+				// filter: blur($bgBlur);
 				background-size: 200% 200%;
 				animation: animateGlow 2s linear infinite reverse;
 				z-index: 1;
