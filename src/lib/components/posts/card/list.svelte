@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import type { NormalizedBy } from '$lib/index.types';
 	import type { PoopPost } from '$lib/repositories/directus/poop';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Viewer from 'viewerjs';
 	import Card from './card.svelte';
 
@@ -79,6 +79,12 @@
 		});
 	}
 
+	function destroyGallery() {
+		gallery?.destroy();
+		gallery?.exit();
+		gallery?.stop();
+	}
+
 	onMount(() => {
 		initGallery(container);
 		if (urlSelectedPostId) {
@@ -87,6 +93,11 @@
 				onCardClick(posts.byId[urlSelectedPostId], pIndex);
 			}
 		}
+	});
+
+	onDestroy(() => {
+		console.log('unmount');
+		destroyGallery();
 	});
 </script>
 
