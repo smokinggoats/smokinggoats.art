@@ -49,7 +49,7 @@
 		var(--bg-purple) 0px 0px 5px 0px,
 		var(--bg-pink) 0px 0px 1px 0px;
 	.menu {
-		z-index: 100;
+		z-index: 2016;
 		position: fixed;
 		top: 0;
 		left: 0;
