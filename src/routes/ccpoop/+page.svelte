@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PoopList from '$lib/components/posts/card/list.svelte';
+	import PoopList from '$lib/components/posts/poop/list.svelte';
 	import Directus from '$lib/plugins/directus';
 	import type { PageData } from './$types';
 	export const directusClient = Directus();

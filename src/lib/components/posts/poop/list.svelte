@@ -96,7 +96,6 @@
 	});
 
 	onDestroy(() => {
-		console.log('unmount');
 		destroyGallery();
 	});
 </script>
@@ -112,6 +111,7 @@
 	$gridSize: 10em;
 	$cornerRadius: calc($gridSize/2.1);
 	.container {
+		padding-top: 2rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax($gridSize, $gridSize));
 		grid-auto-rows: $gridSize;
