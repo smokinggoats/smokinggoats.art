@@ -13,7 +13,7 @@
 
 <div class="app">
 	<Menu />
-	<div style="padding-top: 5rem"></div>
+	<div class="app__spacer"></div>
 	{#if soundtrack}
 		<Soundtrack {soundtrack} />
 	{/if}
@@ -31,7 +31,12 @@
 		max-width: 100%;
 		max-height: 100%;
 		overflow: auto;
-
+		&__spacer {
+			height: 4rem;
+			padding: 0;
+			margin: 0;
+			width: 100%;
+		}
 		&__content {
 			box-sizing: border-box;
 			padding: 0;

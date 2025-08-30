@@ -13,6 +13,7 @@ export type Route = {
 export const ROUTES = {
 	home: () => '/',
 	ccpoop: () => '/ccpoop',
+	ccmovies: () => '/ccmovies',
 	about: () => '/about'
 };
 export const menuDict: Record<string, Route> = {
@@ -29,6 +30,15 @@ export const menuDict: Record<string, Route> = {
 	ccpoop: {
 		name: 'Poop',
 		path: ROUTES.ccpoop(),
+		soundtrack: {
+			src: [
+				'https://directus.smokinggoats.art/assets/4c1c1822-a761-4a2f-876d-4c64e12917e1.flac?format=mp3'
+			]
+		}
+	},
+	ccmovies: {
+		name: 'Firme',
+		path: ROUTES.ccmovies(),
 		soundtrack: {
 			src: [
 				'https://directus.smokinggoats.art/assets/4c1c1822-a761-4a2f-876d-4c64e12917e1.flac?format=mp3'
