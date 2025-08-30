@@ -16,6 +16,7 @@
 
 	export function onCardClick() {
 		onClick && onClick(post);
+		window.open(`https://imdb.com/title/${post.imdb_id}`, '_blank');
 	}
 	export function parseDate(date: string) {
 		return new Date(Date.parse(date)).toISOString().replace(/T.+/, '');
