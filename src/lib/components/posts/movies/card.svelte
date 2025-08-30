@@ -100,7 +100,8 @@
 		transition: all 0.3s ease 0.3s;
 
 		&__details {
-			font-size: 0.6rem;
+								font-size: 0.8rem;
+
 			position: absolute;
 			transition: all 0.3s ease 0.32s;
 			top: 0;
@@ -153,7 +154,7 @@
 				align-items: left;
 				justify-content: space-between;
 				&__tag {
-					font-size: 0.5rem;
+					font-size: 0.8rem;
 					margin: 0.1rem;
 					border-radius: 2rem;
 					padding: 0.5rem;
