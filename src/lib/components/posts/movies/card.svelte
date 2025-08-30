@@ -40,6 +40,31 @@
 		<div class="card-text__info">{post.last_watched ? parseDate(post.last_watched) : '-'}</div>
 		<div class="card-text__info">{post.personal_rating || '-'} ⭐</div>
 	</div>
+	<div class="card__details">
+		<div class="card__details__dir">
+			<div>DIRECTION:</div>
+			<ul>
+				{#each post.director?.split(',') as a}
+					<li class="">{a.trim()}</li>
+				{/each}
+			</ul>
+		</div>
+		<hr />
+		<div class="card__details__cast">
+			<div>CAST:</div>
+			<ul>
+				{#each post.actors?.split(',') as a}
+					<li class="">{a.trim()}</li>
+				{/each}
+			</ul>
+		</div>
+		<hr />
+		<div class="card__details__genre">
+			{#each post.genre?.split(',') as a}
+				<span class="card__details__genre__tag">{a.trim()}</span>
+			{/each}
+		</div>
+	</div>
 </button>
 
 <style lang="scss">
@@ -59,23 +84,89 @@
 	$cornerRadius: calc($gridSize/2.1);
 
 	.card {
+		z-index: 0;
 		cursor: pointer;
 		display: flex;
-		height: 100%;
-		width: 100%;
-		margin: 0;
+		height: 24rem;
+		width: 10rem;
 		padding: 0;
+		margin: 2rem;
 		border: none;
 		border-radius: $cornerRadius;
 		box-shadow: $boxShadow;
 		transition: all 0.3s ease;
 		color: #fff;
 		background-color: #555;
+		position: relative;
+		transition: all 0.3s ease 0.3s;
 
+		&__details {
+			font-size: 0.6rem;
+			position: absolute;
+			transition: all 0.3s ease 0.32s;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			border-radius: $cornerRadius;
+			background-color: #555;
+			z-index: 1000;
+			box-shadow: $boxShadow;
+			color: #fff;
+			padding: 4rem 1rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: stretch;
+
+			& hr {
+				width: 100%;
+				border-color: var(--bg-purple);
+				background-color: var(--bg-purple);
+				box-shadow:
+					var(--bg-purple) 0px 0px 1px 0px,
+					var(--bg-pink) 0px 0px 1px 0px;
+				border-radius: 1px;
+				border-width: 1px;
+				height: 0;
+			}
+			&__dir,
+			&__cast {
+				text-align: left;
+				& ul {
+					margin-top: 0;
+					padding-left: 1rem;
+				}
+			}
+			&__genre {
+				padding: 1rem;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-around;
+				&__tag {
+					font-size: 0.5rem;
+					margin: 0.1rem;
+					border-radius: 2rem;
+					padding: 0.5rem;
+					background: var(--bg-purple);
+					text-transform: uppercase;
+				}
+			}
+		}
 		&:hover {
+			margin-right: 12em;
+			z-index: 1000;
 			background-color: #fff;
 			color: #000;
 			transform: scale(1.1);
+
+			& .card__details {
+				opacity: 1;
+				left: 10rem;
+				right: -10rem;
+			}
 		}
 
 		&-top {
@@ -89,17 +180,6 @@
 			}
 		}
 
-		&-right {
-			flex-direction: row-reverse;
-			grid-column: auto / span 2;
-			grid-row: auto / span 1;
-			&:hover {
-				box-shadow:
-					var(--bg-purple) -5px 5px,
-					var(--bg-pink) -10px 10px;
-			}
-		}
-
 		&-bottom {
 			flex-direction: column-reverse;
 			grid-column: auto / span 1;
@@ -110,16 +190,7 @@
 					var(--bg-pink) -10px -10px;
 			}
 		}
-		&-left {
-			flex-direction: row;
-			grid-column: auto / span 2;
-			grid-row: auto / span 1;
-			&:hover {
-				box-shadow:
-					var(--bg-purple) 5px -5px,
-					var(--bg-pink) 10px -10px;
-			}
-		}
+
 		&-image {
 			display: flex;
 		}
@@ -128,12 +199,6 @@
 		&-bottom &-image {
 			height: 50%;
 			width: 100%;
-		}
-
-		&-left &-image,
-		&-right &-image {
-			height: 100%;
-			width: 50%;
 		}
 
 		&-image img {
@@ -145,16 +210,8 @@
 			border-radius: $cornerRadius $cornerRadius 0 0;
 		}
 
-		&-right img {
-			border-radius: 0 $cornerRadius $cornerRadius 0;
-		}
-
 		&-bottom img {
 			border-radius: 0 0 $cornerRadius $cornerRadius;
-		}
-
-		&-left img {
-			border-radius: $cornerRadius 0 0 $cornerRadius;
 		}
 
 		&-text {
@@ -168,22 +225,10 @@
 			padding-bottom: $boxSpacing * 1.6;
 		}
 
-		&-right &-text {
-			height: auto;
-			width: 50%;
-			padding-left: $boxSpacing * 1.6;
-		}
-
 		&-bottom &-text {
 			height: auto;
 			width: auto;
 			padding-top: $boxSpacing * 1.6;
-		}
-
-		&-left &-text {
-			height: auto;
-			width: 50%;
-			padding-right: $boxSpacing * 1.6;
 		}
 	}
 </style>
