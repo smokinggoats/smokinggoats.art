@@ -30,7 +30,7 @@
 				id="image-{post.poster_image}"
 				loading="lazy"
 				src={directusClient.getImageLink(post?.poster_image)}
-				alt={post.title}
+				alt="-"
 				class="card-image__img"
 			/>
 		{/if}
@@ -58,7 +58,6 @@
 				{/each}
 			</ul>
 		</div>
-		<hr />
 		<div class="card__details__genre">
 			{#each post.genre?.split(',') as a}
 				<span class="card__details__genre__tag">{a.trim()}</span>
@@ -140,11 +139,19 @@
 				}
 			}
 			&__genre {
-				padding: 1rem;
+				transition: all 0.3s ease 0.32s;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				opacity: 0;
+				padding: 2rem 1rem;
 				display: flex;
 				flex-wrap: wrap;
-				align-items: center;
-				justify-content: space-around;
+				flex-direction: column;
+				align-items: left;
+				justify-content: space-between;
 				&__tag {
 					font-size: 0.5rem;
 					margin: 0.1rem;
@@ -152,21 +159,17 @@
 					padding: 0.5rem;
 					background: var(--bg-purple);
 					text-transform: uppercase;
+					box-shadow:
+						var(--bg-purple) 0px 0px 1px 0px,
+						var(--bg-pink) 0px 0px 10px 0px;
 				}
 			}
 		}
 		&:hover {
-			margin-right: 12em;
 			z-index: 1000;
 			background-color: #fff;
 			color: #000;
 			transform: scale(1.1);
-
-			& .card__details {
-				opacity: 1;
-				left: 10rem;
-				right: -10rem;
-			}
 		}
 
 		&-top {
@@ -174,9 +177,21 @@
 			grid-column: auto / span 1;
 			grid-row: auto / span 2;
 			&:hover {
+				margin-left: 12em;
 				box-shadow:
 					var(--bg-purple) 5px 5px,
 					var(--bg-pink) 10px 10px;
+				& .card__details {
+					opacity: 1;
+					left: -10rem;
+					right: 10rem;
+
+					&__genre {
+						opacity: 1;
+						left: 10rem;
+						right: -10rem;
+					}
+				}
 			}
 		}
 
@@ -185,9 +200,21 @@
 			grid-column: auto / span 1;
 			grid-row: auto / span 2;
 			&:hover {
+				margin-right: 12em;
 				box-shadow:
 					var(--bg-purple) -5px -5px,
 					var(--bg-pink) -10px -10px;
+				& .card__details {
+					opacity: 1;
+					left: 10rem;
+					right: -10rem;
+
+					&__genre {
+						opacity: 1;
+						left: -10rem;
+						right: 10rem;
+					}
+				}
 			}
 		}
 
