@@ -18,23 +18,23 @@
 </div>
 
 <style lang="scss">
-	$boxSpacing: 64px;
+	$boxSpacing: 8rem;
 	$gridSize: 10em;
 	$cornerRadius: calc($gridSize/2.1);
 	.container {
 		z-index: 0;
-		// padding-top: 2rem;
-		// display: grid;
-		// grid-template-columns: repeat(auto-fit, minmax($gridSize, $gridSize));
-		// grid-auto-rows: $gridSize;
-		// grid-auto-flow: row dense;
-		// grid-gap: $boxSpacing;
-		// justify-content: center;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-around;
-		padding: 2rem 4rem;
+		padding: 2rem 6rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax($gridSize, $gridSize));
+		grid-auto-rows: $gridSize;
+		grid-auto-flow: row dense;
+		grid-gap: $boxSpacing;
+		justify-content: center;
+		// display: flex;
+		// flex-wrap: wrap;
+		// align-items: center;
+		// justify-content: space-around;
+		// padding: 2rem 0rem;
 	}
 	:global(.viewer-title) {
 		font-size: 3rem;

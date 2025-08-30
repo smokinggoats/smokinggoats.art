@@ -86,10 +86,10 @@
 		z-index: 0;
 		cursor: pointer;
 		display: flex;
-		height: 24rem;
-		width: 10rem;
+		height: 100%;
+		width: 100%;
 		padding: 0;
-		margin: 2rem;
+		margin: 0;
 		border: none;
 		border-radius: $cornerRadius;
 		box-shadow: $boxShadow;
@@ -177,16 +177,23 @@
 			grid-column: auto / span 1;
 			grid-row: auto / span 2;
 			&:hover {
-				margin-left: 12em;
+				transform: rotate(10deg);
+				transform-origin: 0% 40%;
+				margin: 0 5rem;
 				box-shadow:
 					var(--bg-purple) 5px 5px,
 					var(--bg-pink) 10px 10px;
+
 				& .card__details {
+					transform: rotate(-20deg);
+					transform-origin: 100% 50%;
 					opacity: 1;
 					left: -10rem;
 					right: 10rem;
 
 					&__genre {
+						transform: rotate(20deg);
+						transform-origin: 0% 50%;
 						opacity: 1;
 						left: 10rem;
 						right: -10rem;
@@ -200,16 +207,22 @@
 			grid-column: auto / span 1;
 			grid-row: auto / span 2;
 			&:hover {
-				margin-right: 12em;
+				transform-origin: 0% 40%;
+				transform: rotate(-10deg);
+				margin: 0 -5rem;
 				box-shadow:
 					var(--bg-purple) -5px -5px,
 					var(--bg-pink) -10px -10px;
 				& .card__details {
+					transform: rotate(20deg);
+					transform-origin: 0% 50%;
 					opacity: 1;
 					left: 10rem;
 					right: -10rem;
 
 					&__genre {
+						transform: rotate(-20deg);
+						transform-origin: 100% 50%;
 						opacity: 1;
 						left: -10rem;
 						right: 10rem;

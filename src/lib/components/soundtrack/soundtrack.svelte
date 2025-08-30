@@ -61,6 +61,7 @@
 	$bgBlur: 1rem;
 
 	.soundtrack {
+		z-index: 2015;
 		position: fixed;
 		bottom: 1.8rem;
 		right: 0;
@@ -69,7 +70,6 @@
 		width: 90%;
 		margin: 2rem auto 2rem auto;
 		display: flex;
-		z-index: 100;
 		&__audio {
 			width: 100%;
 			border-radius: 2rem;
