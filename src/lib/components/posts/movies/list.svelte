@@ -82,20 +82,18 @@
 
 	.movie-menu {
 		position: fixed;
-		bottom: 4rem;
-		left: -24rem;
-		max-height: 30vh;
-		width: 24rem;
 		background: rgba(21, 0, 21, 0.75);
 		z-index: 2016;
 		display: flex;
 		flex-direction: column;
 		transition: all 0.7s 0.2s ease;
-		border-top-right-radius: 2rem;
+		top: 4rem;
+		left: -100vw;
+		max-height: 30vh;
+		width: 100vw;
 
 		&__background {
 			position: absolute;
-			border-top-right-radius: 2rem;
 			transition: all ease 1s;
 			top: 0;
 			left: 0;
@@ -121,22 +119,17 @@
 		}
 		&:hover {
 			left: 0rem;
-			border-bottom-right-radius: 2rem;
 			.movie-menu__background {
-				border-bottom-right-radius: 2rem;
 				transition:
 					all ease 1s 0.7s,
-					border-radius .2s ease;
-				filter: blur(.5rem);
+					border-radius 0.2s ease;
+				filter: blur(0.5rem);
 				background-size: 200% 200%;
 				animation: animateGlow 5s linear infinite reverse;
 				z-index: 1;
 			}
 			.movie-menu__action {
 				opacity: 0;
-			}
-			.movie-menu__container {
-				border-bottom-right-radius: 2rem;
 			}
 			@keyframes animateGlow {
 				0% {
@@ -149,7 +142,6 @@
 		}
 
 		&__container {
-			border-top-right-radius: 2rem;
 			background-color: rgba(21, 21, 21, 0.7);
 			transition: all 0.7s 0.2s ease;
 			z-index: 1;
@@ -164,14 +156,18 @@
 		}
 		&__action {
 			opacity: 1;
+			background: rgba(21, 0, 21, 0.75);
+			z-index: 2016;
+			display: flex;
+			flex-direction: column;
 			transition: all 0.3s 0.2s ease;
 			position: absolute;
-			bottom: 0;
+			top: 0;
 			right: -2.3rem;
-			background: rgba(115, 0, 119, 0.5);
-			height: 2rem;
+			background: rgba(115, 0, 119, 0.4);
+			height: 3rem;
 			width: 2rem;
-			border-radius: 0 2rem 2rem 0;
+			border-radius: 0 0 2rem 0;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -189,6 +185,36 @@
 			select,
 			input {
 				width: 100%;
+			}
+		}
+	}
+
+	@media (min-width: 80em) {
+		.movie-menu {
+			top: unset;
+			bottom: 3.5rem;
+			left: -24rem;
+			max-height: 30vh;
+			width: 24rem;
+			border-top-right-radius: 2rem;
+			&__action {
+				top: unset;
+				bottom: 0;
+				right: -2.3rem;
+				border-radius: 0 2rem 2rem 0;
+			}
+			&__container,
+			&__background {
+				border-top-right-radius: 2rem;
+			}
+			&:hover {
+				border-bottom-right-radius: 2rem;
+				.movie-menu__background {
+					border-bottom-right-radius: 2rem;
+				}
+				.movie-menu__container {
+					border-bottom-right-radius: 2rem;
+				}
 			}
 		}
 	}
