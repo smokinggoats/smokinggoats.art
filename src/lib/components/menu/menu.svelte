@@ -23,11 +23,12 @@
 			<a
 				class="menu__items__item"
 				class:menu__items__item--selected={isSelected(item)}
+				class:menu__items__item--icon={!!item.icon}
 				onclick={() => updateSelected(item.path)}
 				href={item.path}
 			>
 				{#if item.icon}
-					<Icon icon={item.icon} width="2rem" />
+					<Icon icon={item.icon} width="1.2rem" />
 				{:else}
 					{item.name}
 				{/if}
@@ -90,8 +91,8 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				margin: 0 1rem;
-				padding: 0.5rem;
+				margin: 0 .5rem;
+				padding: 0.3rem 0.4rem;
 				border-radius: 2rem;
 				width: 4rem;
 				line-height: 160%;
@@ -105,6 +106,10 @@
 					color: var(--bg-purple-text);
 					background-color: var(--bg-purple);
 					box-shadow: var(--bg-pink) -10px 0px -10px 0px;
+				}
+				&--icon {
+					width: 1.3rem;
+					border-radius: 50%;
 				}
 				&--selected {
 					background: var(--bg-pink);
