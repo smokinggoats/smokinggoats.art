@@ -8,7 +8,7 @@
 </script>
 
 <div class="page">
-	<CardList posts={data.posts} />
+	<CardList posts={data.posts} categories={data.categories} />
 </div>
 
 <style lang="scss">

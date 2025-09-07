@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Directus from '$lib/plugins/directus';
-	import type { Movie } from '$lib/repositories/directus/movies';
+	import type { Movie, MovieParsed } from '$lib/repositories/directus/movies';
 	export const directusClient = Directus();
 	export interface Props {
-		post: Movie;
+		post: MovieParsed;
 		onClick?: (post: Movie) => void;
 	}
 	export type CardType = 'top' | 'bottom';
@@ -59,8 +59,8 @@
 			</ul>
 		</div>
 		<div class="card__details__genre">
-			{#each post.genre?.split(',') as a}
-				<span class="card__details__genre__tag">{a.trim()}</span>
+			{#each Object.keys(post.genre) as a}
+				<span class="card__details__genre__tag">{a}</span>
 			{/each}
 		</div>
 	</div>
@@ -100,7 +100,7 @@
 		transition: all 0.3s ease 0.3s;
 
 		&__details {
-								font-size: 0.8rem;
+			font-size: 0.8rem;
 
 			position: absolute;
 			transition: all 0.3s ease 0.32s;

@@ -13,7 +13,6 @@ export type Movie = {
 	year: string;
 	released: string;
 	runtime: string;
-	genre: string;
 	director: string;
 	writer: string;
 	actors: string;
@@ -29,12 +28,39 @@ export type Movie = {
 	last_watched?: string;
 };
 
+export interface MovieAPI extends Movie {
+	genre?: string;
+}
+export interface MovieParsed extends Movie {
+	genre: Record<string, string>;
+}
+
 export function MovieRepository(client: DirectusClient<any> & RestClient<any>) {
 	return {
+		parseGenre(genre: string): Record<string, string> {
+			return Object.fromEntries(
+				genre?.split(',')?.map((el: string) => {
+					const e = el.trim();
+					return [e, e];
+				}) || []
+			);
+		},
+		async getCategories() {
+			const response = await client.request(
+				readItems('movies', {
+					fields: ['genre'],
+					limit: -1
+				})
+			);
+			return response.reduce((acc, curr) => {
+				return { ...acc, ...this.parseGenre(curr.genre || '') };
+			}, {});
+		},
 		async getMovieList() {
-			return client.request<Movie[]>(
+			return client.request<MovieAPI[]>(
 				readItems('movies   ', {
-					sort: ['-last_watched']
+					sort: ['-last_watched'],
+					limit: -1
 				})
 			);
 		}
