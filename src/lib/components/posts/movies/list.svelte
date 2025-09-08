@@ -7,7 +7,7 @@
 	export interface Props {
 		posts: NormalizedBy<'id', MovieParsed>;
 		categories: {
-			genre: Record<string, string>;
+			genre: string[];
 			year: number[];
 		};
 	}
@@ -44,7 +44,7 @@
 			<div class="movie-menu__field">
 				<label for="categorySelect">Category:</label>
 				<select id="categorySelect" multiple bind:value={selectedCategories}>
-					{#each Object.keys(categories.genre) as cat}
+					{#each categories.genre as cat}
 						<option value={cat}>{cat}</option>
 					{/each}
 				</select>

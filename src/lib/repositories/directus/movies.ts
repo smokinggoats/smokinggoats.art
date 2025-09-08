@@ -88,6 +88,10 @@ export function MovieRepository(client?: DirectusClient<any> & RestClient<any>) 
 			}
 			return c && t && y;
 		},
+		sort(direction = 'A') {
+			const mod = direction === 'A' ? 1 : -1;
+			return (a, b) => (a > b ? 1 * mod : -1 * mod);
+		},
 		// api
 		async getCategories() {
 			if (!client) throw 'missing client';
@@ -98,14 +102,16 @@ export function MovieRepository(client?: DirectusClient<any> & RestClient<any>) 
 				})
 			);
 			return {
-				genre: response.reduce((acc, curr) => {
-					return { ...acc, ...this.parseGenre(curr.genre || '') };
-				}, {}),
+				genre: Object.values(
+					response.reduce((acc, curr) => {
+						return { ...acc, ...this.parseGenre(curr.genre || '') };
+					}, {})
+				).sort(this.sort('A')),
 				year: Object.values(
 					response.reduce((acc, curr) => {
 						return { ...acc, [curr.year]: Number(curr.year) };
 					}, {})
-				)
+				).sort(this.sort('D'))
 			};
 		},
 		async getMovieList() {
