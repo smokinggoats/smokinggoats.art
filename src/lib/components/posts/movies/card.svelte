@@ -40,8 +40,8 @@
 		<div class="card-text__title">{post.title}</div>
 		<div class="card-text__info">{post.last_watched ? parseDate(post.last_watched) : '-'}</div>
 		<div class="card-text__info">
-			{post.personal_rating || '-'}
-			<Icon icon="solar:stars-minimalistic-line-duotone" />
+			<span>{post.personal_rating || '-'}</span>
+			<Icon icon="solar:stars-minimalistic-line-duotone" width=".8rem" />
 		</div>
 	</div>
 	<div class="card__details">
@@ -105,6 +105,19 @@
 		background-color: #555;
 		position: relative;
 		transition: all 0.3s ease 0.3s;
+
+		&-text {
+			&__info {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				line-height: 2rem;
+				vertical-align: middle;
+				span {
+					margin-right: 0.1rem;
+				}
+			}
+		}
 
 		&__details {
 			font-size: 0.8rem;
