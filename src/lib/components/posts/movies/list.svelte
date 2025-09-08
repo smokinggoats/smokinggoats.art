@@ -17,6 +17,9 @@
 	let renderIds: string[] = $state([]);
 </script>
 
+<div class="movie-total">
+	<span>{renderIds.length} / {posts.ids.length}</span>
+</div>
 <div class="container" bind:this={container}>
 	<MovieConfig {categories} {posts} onchange={(ids) => (renderIds = ids)} />
 	{#each renderIds as postId}
@@ -37,6 +40,23 @@
 		grid-auto-flow: row dense;
 		grid-gap: $boxSpacing;
 		justify-content: center;
+	}
+
+	.movie-total {
+		width: 100%;
+		text-align: center;
+		& span {
+			margin: auto;
+			text-align: center;
+			font-size: 0.8rem;
+			border-radius: 2rem;
+			padding: 0.5rem 1rem;
+			background: rgba(128, 0, 128, 0.2);
+			text-transform: uppercase;
+			box-shadow:
+				var(--bg-purple) 0px 0px 1px 0px,
+				var(--bg-pink) 0px 0px 1px 0px;
+		}
 	}
 
 	:global(.viewer-title) {
