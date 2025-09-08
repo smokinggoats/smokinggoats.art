@@ -61,37 +61,52 @@ export function MovieRepository(client?: DirectusClient<any> & RestClient<any>) 
 		shouldRenderCardTitle(post: MovieParsed, titleFilter: string = '') {
 			return post.title.toLocaleLowerCase().includes(titleFilter.toLocaleLowerCase());
 		},
+		shouldRenderCardYear(post: MovieParsed, yearFilter: number[] = []) {
+			return yearFilter.includes(Number(post.year));
+		},
 		filterMovies(
 			id: string,
 			posts: NormalizedBy<'id', MovieParsed>,
 			selectedCategories: string[] = [],
-			titleFilter: string = ''
+			titleFilter: string = '',
+			yearFilter: number[]
 		) {
 			const p = posts.byId[id];
 			if (!p) return false;
 
 			let c = true;
 			if (selectedCategories.length > 0) {
-				c = this.shouldRenderCardCategory(p);
+				c = this.shouldRenderCardCategory(p, selectedCategories);
 			}
 			let t = true;
 			if (titleFilter.length > 0) {
-				t = this.shouldRenderCardTitle(p);
+				t = this.shouldRenderCardTitle(p, titleFilter);
 			}
-			return c && t;
+			let y = true;
+			if (yearFilter.length > 0) {
+				y = this.shouldRenderCardYear(p, yearFilter);
+			}
+			return c && t && y;
 		},
 		// api
 		async getCategories() {
 			if (!client) throw 'missing client';
 			const response = await client.request(
 				readItems('movies', {
-					fields: ['genre'],
+					fields: ['genre', 'year'],
 					limit: -1
 				})
 			);
-			return response.reduce((acc, curr) => {
-				return { ...acc, ...this.parseGenre(curr.genre || '') };
-			}, {});
+			return {
+				genre: response.reduce((acc, curr) => {
+					return { ...acc, ...this.parseGenre(curr.genre || '') };
+				}, {}),
+				year: Object.values(
+					response.reduce((acc, curr) => {
+						return { ...acc, [curr.year]: Number(curr.year) };
+					}, {})
+				)
+			};
 		},
 		async getMovieList() {
 			if (!client) throw 'missing client';

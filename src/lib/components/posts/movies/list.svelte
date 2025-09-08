@@ -6,7 +6,10 @@
 
 	export interface Props {
 		posts: NormalizedBy<'id', MovieParsed>;
-		categories: Record<string, string>;
+		categories: {
+			genre: Record<string, string>;
+			year: number[];
+		};
 	}
 
 	const movieRepo = MovieRepository();
@@ -14,9 +17,10 @@
 	let { posts, categories }: Props = $props();
 	let selectedCategories = $state([]);
 	let titleFilter = $state('');
+	let yearFilter = $state([]);
 	const renderIds = $derived(
 		(posts?.ids || []).filter((id) =>
-			movieRepo.filterMovies(id, posts, selectedCategories, titleFilter)
+			movieRepo.filterMovies(id, posts, selectedCategories, titleFilter, yearFilter)
 		)
 	);
 </script>
@@ -30,9 +34,17 @@
 				<input id="titleFilter" type="input" bind:value={titleFilter} />
 			</div>
 			<div class="movie-menu__field">
+				<label for="yearSelect">Year:</label>
+				<select id="yearSelect" multiple bind:value={yearFilter}>
+					{#each categories.year as cat}
+						<option value={cat}>{cat}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="movie-menu__field">
 				<label for="categorySelect">Category:</label>
 				<select id="categorySelect" multiple bind:value={selectedCategories}>
-					{#each Object.keys(categories) as cat}
+					{#each Object.keys(categories.genre) as cat}
 						<option value={cat}>{cat}</option>
 					{/each}
 				</select>
@@ -71,7 +83,7 @@
 		transition: all 0.7s 0.2s ease;
 		top: 4rem;
 		left: -100vw;
-		max-height: 30vh;
+		max-height: 50vh;
 		width: 100vw;
 
 		&__background {
@@ -176,7 +188,7 @@
 			top: unset;
 			bottom: 3.5rem;
 			left: -24rem;
-			max-height: 30vh;
+			max-height: 50vh;
 			width: 24rem;
 			border-top-right-radius: 2rem;
 			&__action {
