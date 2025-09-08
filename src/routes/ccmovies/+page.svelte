@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CardList from '$lib/components/posts/movies/list.svelte';
+	import MovieList from '$lib/components/posts/movies/list.svelte';
 	import Directus from '$lib/plugins/directus';
 	import type { PageData } from './$types';
 	export const directusClient = Directus();
@@ -8,7 +8,7 @@
 </script>
 
 <div class="page">
-	<CardList posts={data.posts} categories={data.categories} />
+	<MovieList posts={data.posts} categories={data.categories} />
 </div>
 
 <style lang="scss">

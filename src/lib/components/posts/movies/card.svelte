@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Directus from '$lib/plugins/directus';
 	import type { Movie, MovieParsed } from '$lib/repositories/directus/movies';
+	import Icon from '@iconify/svelte';
 	export const directusClient = Directus();
 	export interface Props {
 		post: MovieParsed;
@@ -38,14 +39,20 @@
 	<div class="card-text">
 		<div class="card-text__title">{post.title}</div>
 		<div class="card-text__info">{post.last_watched ? parseDate(post.last_watched) : '-'}</div>
-		<div class="card-text__info">{post.personal_rating || '-'} ⭐</div>
+		<div class="card-text__info">
+			{post.personal_rating || '-'}
+			<Icon icon="solar:stars-minimalistic-line-duotone" />
+		</div>
 	</div>
 	<div class="card__details">
+		<div class="card__details__year">
+			<span class="card__details__year__tag">{post.year}</span>
+		</div>
 		<div class="card__details__dir">
 			<div>DIRECTION:</div>
 			<ul>
-				{#each post.director?.split(',') as a}
-					<li class="">{a.trim()}</li>
+				{#each post.director as a}
+					<li class="">{a}</li>
 				{/each}
 			</ul>
 		</div>
@@ -53,8 +60,8 @@
 		<div class="card__details__cast">
 			<div>CAST:</div>
 			<ul>
-				{#each post.actors?.split(',') as a}
-					<li class="">{a.trim()}</li>
+				{#each post.actors as a}
+					<li class="">{a}</li>
 				{/each}
 			</ul>
 		</div>
@@ -159,6 +166,23 @@
 					border-radius: 2rem;
 					padding: 0.5rem;
 					background: var(--bg-purple);
+					text-transform: uppercase;
+					box-shadow:
+						var(--bg-purple) 0px 0px 1px 0px,
+						var(--bg-pink) 0px 0px 10px 0px;
+				}
+			}
+			&__year {
+				position: absolute;
+				top: 2rem;
+				left: 50%;
+				transform: translateX(-50%);
+				&__tag {
+					font-size: 0.8rem;
+					margin: 0.1rem;
+					border-radius: 2rem;
+					padding: 0.5rem 1rem;
+					background: rgba(128, 0, 128, 0.2);
 					text-transform: uppercase;
 					box-shadow:
 						var(--bg-purple) 0px 0px 1px 0px,

@@ -8,9 +8,10 @@ export default defineConfig({
 	},
 	server: {
 		allowedHosts: true,
-		port: process.env.PORT || 5173
+		port: Number(process.env.PORT) || 5173,
+		cors: false
 	},
 	preview: {
-		port: process.env.PORT || 5173
+		port: Number(process.env.PORT) || 5173
 	}
 });

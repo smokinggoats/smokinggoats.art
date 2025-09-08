@@ -1,41 +1,23 @@
 <script lang="ts">
 	import type { NormalizedBy } from '$lib/index.types';
-	import type { Movie, MovieParsed } from '$lib/repositories/directus/movies';
+	import { MovieRepository, type Movie, type MovieParsed } from '$lib/repositories/directus/movies';
 	import Icon from '@iconify/svelte';
-	import Card from './card.svelte';
+	import MovieCard from './card.svelte';
 
 	export interface Props {
 		posts: NormalizedBy<'id', MovieParsed>;
 		categories: Record<string, string>;
 	}
 
-	function shouldRenderCardCategory(post: MovieParsed) {
-		return selectedCategories.some((c) => !!post.genre[c]);
-	}
-
-	function shouldRenderCardTitle(post: MovieParsed) {
-		return post.title.toLocaleLowerCase().includes(titleFilter.toLocaleLowerCase());
-	}
-
+	const movieRepo = MovieRepository();
 	let container: HTMLElement;
 	let { posts, categories }: Props = $props();
 	let selectedCategories = $state([]);
 	let titleFilter = $state('');
 	const renderIds = $derived(
-		(posts?.ids || []).filter((id) => {
-			const p = posts.byId[id];
-			if (!p) return false;
-
-			let c = true;
-			if (selectedCategories.length > 0) {
-				c = shouldRenderCardCategory(p);
-			}
-			let t = true;
-			if (titleFilter.length > 0) {
-				t = shouldRenderCardTitle(p);
-			}
-			return c && t;
-		})
+		(posts?.ids || []).filter((id) =>
+			movieRepo.filterMovies(id, posts, selectedCategories, titleFilter)
+		)
 	);
 </script>
 
@@ -61,7 +43,7 @@
 		</div>
 	</div>
 	{#each renderIds as postId}
-		<Card post={posts.byId[postId]} />
+		<MovieCard post={posts.byId[postId]} />
 	{/each}
 </div>
 

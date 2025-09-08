@@ -1,3 +1,4 @@
+import { normalizeBy } from '$lib/utils';
 import { readItems, type DirectusClient, type RestClient } from '@directus/sdk';
 
 export type PoopPost = {
@@ -16,7 +17,7 @@ export type PoopPost = {
 export function PoopRepository(client: DirectusClient<any> & RestClient<any>) {
 	return {
 		async getPoopsList() {
-			return client.request<PoopPost[]>(
+			const data = await client.request<PoopPost[]>(
 				readItems('poop', {
 					filter: {
 						status: {
@@ -26,6 +27,7 @@ export function PoopRepository(client: DirectusClient<any> & RestClient<any>) {
 					sort: ['-date_created']
 				})
 			);
+			return data.reduce(...normalizeBy<'id', PoopPost>('id'));
 		}
 	};
 }
